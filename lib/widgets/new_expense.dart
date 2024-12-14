@@ -64,9 +64,13 @@ class _NewExpenseState extends State<NewExpense> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(16),
-      child: Column(
+    final keyboardSpace = MediaQuery.of(context).viewInsets.bottom;
+    return SizedBox(
+      height: double.infinity,
+      child: SingleChildScrollView(
+      child: Padding(
+        padding: EdgeInsets.fromLTRB(16, 48, 16, keyboardSpace+16),
+        child: Column(
         children: [
           TextField(
             controller: _titleController,
@@ -140,8 +144,9 @@ class _NewExpenseState extends State<NewExpense> {
               ),
               ElevatedButton(
                 onPressed: () {
-                  print(_titleController.text);
-                  print(_amountController.text);
+                  _submitExpenseData();
+                  // print(_titleController.text);
+                  // print(_amountController.text);
                 },
                 child: const Text('Save Expense'),
               )
@@ -149,6 +154,9 @@ class _NewExpenseState extends State<NewExpense> {
           )
         ],
       ),
+    )
+    )
     );
+      
   }
 }

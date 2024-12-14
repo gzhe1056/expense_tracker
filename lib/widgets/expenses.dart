@@ -61,6 +61,9 @@ class _ExpensesState extends State<Expenses> {
   ];
   @override
   Widget build(BuildContext context) {
+    var width = MediaQuery.of(context).size.width;
+    // print("Width: ${MediaQuery.of(context).size.width}");
+    // print("Height: ${MediaQuery.of(context).size.height}");
     Widget mainContent = const Center(child: Text('No expenses found. Click + to add one.'),);
     if(_registeredExpenses.isNotEmpty){
       mainContent=ExpensesList(expenses: _registeredExpenses, onRemoveExpense: _removeExpense);
@@ -75,12 +78,13 @@ class _ExpensesState extends State<Expenses> {
           )
         ],
       ),
-      body: Column(
+      body:  width < 600 ? Column(
         children: [
           Chart(expenses: _registeredExpenses),
           Expanded(child: mainContent)
         ],
-      ),
+      ) : Row(children: [Expanded(child: Chart(expenses: _registeredExpenses)),
+          Expanded(child: mainContent)],)
     );
   }
 }
